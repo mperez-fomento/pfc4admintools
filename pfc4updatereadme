@@ -1,0 +1,14 @@
+#!/bin/bash
+
+cd ~/0projects/tic4/pfc/students
+
+IFS=$'\n'
+for i in $(find . -type d -name $1);
+do
+	cd $i
+	git pull --no-edit
+	cp ~/0projects/tic4/pfc/ideas/$1/README.md .
+	git commit -a -m "Update README.md"
+	git push
+done
+unset IFS
