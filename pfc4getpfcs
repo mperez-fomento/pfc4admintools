@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cd ~/0projects/tic4/pfc/students
+for i in $(find ~/0projects/tic4/pfc/students/ -maxdepth 1 -type d -name "g4*");
+do
+	d=$(basename $i)
+	gitlabctl get projects --from-group $d >> getpfcs
+done
+rm pfcs.csv
+cat getpfcs | sed  -n 's%^.* | \(\S*\)/\(\S*\) | \(https\S*\).*$%\1,\2,\3%p' >> pfcs.csv
+rm getpfcs
